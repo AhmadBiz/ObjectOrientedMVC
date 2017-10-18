@@ -1,5 +1,5 @@
-<?php 
-abstract class controller{
+<?php
+abstract class Controller{
 	protected $request;
 	protected $action;
 
@@ -12,11 +12,11 @@ abstract class controller{
 		return $this->{$this->action}();
 	}
 
-	protected function returnView($viewmodel, $fullView){
-		$view = 'views/' . get_class($this). '/' . $this->action.'.php';
-		if($fullView){
+	protected function returnView($viewmodel, $fullview){
+		$view = 'views/'. get_class($this). '/' . $this->action. '.php';
+		if($fullview){
 			require('views/main.php');
-		}else{
+		} else {
 			require($view);
 		}
 	}

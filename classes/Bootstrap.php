@@ -1,45 +1,45 @@
 <?php
-class bootstrap{
+class Bootstrap{
 	private $controller;
 	private $action;
 	private $request;
 
 	public function __construct($request){
 		$this->request = $request;
-		//controller is the part right after php.dev
-		if($this->request['controller']==''){
+		if($this->request['controller'] == ""){
 			$this->controller = 'home';
-		}else{
-			$this->controller = $this->request['controller']; //make it equal to itself
+		} else {
+			$this->controller = $this->request['controller'];
 		}
-		if($this->request['action'] == ''){ //action is what comes after the controller --> register
+		if($this->request['action'] == ""){
 			$this->action = 'index';
-		}else{
-			$this->action = $this->request['controller'];
+		} else {
+			$this->action = $this->request['action'];
 		}
 	}
 
 	public function createController(){
-		// check class
+		// Check Class
 		if(class_exists($this->controller)){
 			$parents = class_parents($this->controller);
-			//check extend
-			if(in_array("controller", $parents)){
+			// Check Extend
+			if(in_array("Controller", $parents)){
 				if(method_exists($this->controller, $this->action)){
 					return new $this->controller($this->action, $this->request);
-				}else{
-					echo '<h1>method does not exist</h1>';
+				} else {
+					// Method Does Not Exist
+					echo '<h1>Method does not exist</h1>';
 					return;
 				}
-			}else{
-				echo '<h1>base controller not found</h1>';
+			} else {
+				// Base Controller Does Not Exist
+				echo '<h1>Base controller not found</h1>';
 				return;
 			}
-		}else{
-			echo '<h1>controller class does not exist</h1>';
+		} else {
+			// Controller Class Does Not Exist
+			echo '<h1>Controller class does not exist</h1>';
 			return;
 		}
 	}
-
 }
-?>
